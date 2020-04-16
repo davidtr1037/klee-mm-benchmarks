@@ -32,9 +32,8 @@ ARGS="--sym-files 1 1 -sym-stdin ${CURRENT_DIR}/make.input -r -n -R -f A"
 
 function run_klee {
     search=$1
-    ${VANILLA_KLEE}
+    ${VANILLA_KLEE} ${FLAGS} \
         ${search} \
-        ${FLAGS} \
         ${BC_FILE} ${ARGS}
 }
 
@@ -92,6 +91,7 @@ function run_split_all {
 }
 
 ulimit -s unlimited
+export KLEE_TEMPLATE=$(realpath ${CURRENT_DIR}/make.input)
 
 run_klee
 run_klee_smm
