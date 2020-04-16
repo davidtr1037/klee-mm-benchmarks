@@ -60,7 +60,7 @@ function run_split {
 }
 
 function run_split_all {
-    sizes=(16 32 64 128 256 512)
+    sizes=(32 64 128 256 512)
     for size in ${sizes[@]}; do
         PARTITION=${size} run_split
     done

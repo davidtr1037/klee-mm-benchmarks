@@ -13,7 +13,7 @@ $(SRC_PATH): $(SRC_PATH).tar.gz
 
 BUILD=build
 BUILD_GCOV=build_gcov
-CONF_FLAGS=--without-iconv
+CONF_FLAGS=--without-iconv --without-lzma --without-pthread --with-threads=no
 
 TARGET=test_driver
 BC_TARGET=test_driver.bc
