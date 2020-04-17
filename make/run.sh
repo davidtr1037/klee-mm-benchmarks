@@ -92,6 +92,7 @@ function run_split_all {
 }
 
 ulimit -s unlimited
+export KLEE_TEMPLATE=$(realpath ${CURRENT_DIR}/make.input)
 
 run_klee
 run_klee_smm
