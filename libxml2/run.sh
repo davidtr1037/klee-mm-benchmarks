@@ -4,9 +4,6 @@ CURRENT_DIR=$(dirname ${BASH_SOURCE[0]})
 source ${CURRENT_DIR}/../config.sh
 
 BC_FILE=${CURRENT_DIR}/test_driver.bc
-MAX_TIME=3600
-MAX_TIME_INCREASED=5400
-MAX_INST=170132594
 MAX_MEMORY=8000
 SPLIT_THRESHOLD=300
 PARTITION=128
@@ -47,6 +44,13 @@ function run_symaddr_overhead {
 
 function run_klee {
     ${VANILLA_KLEE} ${FLAGS} \
+        ${BC_FILE} ${SIZE}
+}
+
+function run_with_rebase {
+    ${KLEE} ${FLAGS} \
+        -use-sym-addr \
+        -use-rebase \
         ${BC_FILE} ${SIZE}
 }
 
