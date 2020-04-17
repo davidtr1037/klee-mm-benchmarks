@@ -15,6 +15,7 @@ FLAGS+="-only-output-states-covering-new "
 FLAGS+="-allocate-determ "
 FLAGS+="-allocate-determ-start-address=0x0 "
 FLAGS+="-allocate-determ-size=4000 "
+FLAGS+="-use-cex-cache=0 "
 
 BC_FILE=${CURRENT_DIR}/build/test_driver.bc
 DEPTH=0
