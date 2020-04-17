@@ -44,6 +44,7 @@ function run_split_all {
 }
 
 ulimit -s unlimited
+export KLEE_TEMPLATE=$(realpath ${CURRENT_DIR}/gas.input) KLEE_TEMPLATE_RANGE_START=f KLEE_TEMPLATE_RANGE_END=g
 
 #run_split_all
 #run_klee
