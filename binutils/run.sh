@@ -27,6 +27,13 @@ function run_klee {
         ${BC_FILE} ${ARGS}
 }
 
+function run_with_rebase {
+    ${KLEE} ${FLAGS} \
+        -use-sym-addr \
+        -use-rebase \
+        ${BC_FILE} ${ARGS}
+}
+
 function run_split {
     ${KLEE} ${FLAGS} \
         -use-sym-addr \
@@ -37,7 +44,7 @@ function run_split {
 }
 
 function run_split_all {
-    sizes=(16 32 64 128 256 512)
+    sizes=(32 64 128 256 512)
     for size in ${sizes[@]}; do
         PARTITION=${size} run_split
     done
