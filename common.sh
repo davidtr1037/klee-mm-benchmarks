@@ -4,7 +4,7 @@ MAX_TIME=86400
 MAX_MEMORY=8000
 N=1
 
-function run_all {
+function run_merge_all {
     for ((n=0;n<${N};n++)); do
         echo "iteration ${n}"
         CONTEXT_RESOLVE=1 K_CONTEXT=4 REUSE=1 run_with_rebase "-search=dfs"
@@ -22,7 +22,7 @@ function run_context_test {
 function run_no_opt {
     for ((n=0;n<${N};n++)); do
         echo "iteration ${n}"
-        CONTEXT_RESOLVE=0 REUSE=0 run_with_rebase "-search=dfs"
+        CONTEXT_RESOLVE=0 K_CONTEXT=0 REUSE=0 run_with_rebase "-search=dfs"
     done
 }
 
