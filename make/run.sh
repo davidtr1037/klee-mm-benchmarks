@@ -4,6 +4,8 @@ CURRENT_DIR=$(dirname ${BASH_SOURCE[0]})
 source ${CURRENT_DIR}/../config.sh
 source ${CURRENT_DIR}/../common.sh
 
+ALLOCATE_DETERM=1
+
 FLAGS=""
 FLAGS+="-libc=uclibc "
 FLAGS+="-posix-runtime "
@@ -11,7 +13,6 @@ FLAGS+="-use-forked-solver=0 "
 FLAGS+="-only-output-states-covering-new "
 FLAGS+="-max-memory=${MAX_MEMORY} "
 FLAGS+="-max-time=${MAX_TIME} "
-FLAGS+="-allocate-determ "
 FLAGS+="-allocate-determ-start-address=0x0 "
 FLAGS+="-allocate-determ-size=4000 "
 FLAGS+="-switch-type=internal "
@@ -32,12 +33,14 @@ function run_klee {
     search=$1
     ${VANILLA_KLEE} ${FLAGS} \
         ${search} \
+        -allocate-determ=1 \
         ${BC_FILE} ${ARGS}
 }
 
 function run_klee_smm {
     search=$1
     ${KLEE_SMM} ${FLAGS} \
+        -allocate-determ=1 \
         ${search} \
         -max-time=${MAX_TIME} \
         -pts \
@@ -49,6 +52,7 @@ function run_with_rebase {
     search=$1
     ${KLEE} ${FLAGS} \
         ${search} \
+        -allocate-determ=1 \
         -use-sym-addr \
         -use-rebase \
         -use-kcontext=${K_CONTEXT} \
@@ -66,6 +70,7 @@ function run_with_rebase {
 
 function run_split {
     ${KLEE} ${FLAGS} \
+        -allocate-determ=${ALLOCATE_DETERM} \
         -search=dfs \
         -use-sym-addr \
         -split-objects \
@@ -75,10 +80,11 @@ function run_split {
 }
 
 function run_split_all {
-    sizes=(32 64 128 256 512)
+    sizes=(64 128 256 512)
     for size in ${sizes[@]}; do
-        PARTITION=${size} run_split
+        ALLOCATE_DETERM=1 PARTITION=${size} run_split
     done
+    ALLOCATE_DETERM=0 PARTITION=32 run_split
 }
 
 ulimit -s unlimited
