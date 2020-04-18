@@ -24,6 +24,8 @@ $(BUILD_DIR): $(SRC_PATH)
 
 all: $(BUILD_DIR)
 	make -C ${BUILD_DIR} -j4
+	$(EXTRACT_BC) $(BUILD_DIR)/gas/as-new
+	$(OPT) -mem2reg $(BUILD_DIR)/gas/as-new.bc -o $(BUILD_DIR)/gas/as-new.bc
 
 $(BC_TARGET): $(TARGET) 
 	$(EXTRACT_BC) $< -o $@
