@@ -78,8 +78,11 @@ function run_split {
         ${BC_FILE} ${SIZE}
 }
 
-ulimit -s unlimited
+function run_split_all {
+    sizes=(32 64 128 256 512)
+    for size in ${sizes[@]}; do
+        PARTITION=${size} run_split
+    done
+}
 
-run_klee
-run_klee_smm
-run_with_rebase
+ulimit -s unlimited
