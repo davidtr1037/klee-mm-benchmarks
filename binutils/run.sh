@@ -2,13 +2,13 @@
 
 CURRENT_DIR=$(dirname ${BASH_SOURCE[0]})
 source ${CURRENT_DIR}/../config.sh
+source ${CURRENT_DIR}/../common.sh
 
 FLAGS=""
 FLAGS+="-max-memory=${MAX_MEMORY} "
 FLAGS+="-max-time=${MAX_TIME} "
 FLAGS+="-libc=uclibc "
 FLAGS+="-posix-runtime "
-FLAGS+="-search=dfs "
 FLAGS+="-use-forked-solver=0 "
 FLAGS+="-only-output-states-covering-new "
 FLAGS+="-switch-type=internal "
@@ -20,7 +20,6 @@ FLAGS+="-allocate-determ-size=4000 "
 PARTITION=128
 
 BC_FILE=${CURRENT_DIR}/build/gas/as-new.bc
-#ARGS="-sym-stdin ${CURRENT_DIR}/gas.input"
 ARGS="A --sym-files 1 100"
 
 function run_klee {
@@ -43,6 +42,7 @@ function run_with_rebase {
 
 function run_split {
     ${KLEE} ${FLAGS} \
+        -search=dfs \
         -use-sym-addr \
         -split-objects \
         -split-threshold=300 \
