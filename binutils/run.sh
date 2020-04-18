@@ -28,6 +28,12 @@ function run_klee {
         ${BC_FILE} ${ARGS}
 }
 
+function run_memory_model {
+    ${KLEE} ${FLAGS} \
+        -use-sym-addr \
+        ${BC_FILE} ${ARGS}
+}
+
 function run_with_rebase {
     ${KLEE} ${FLAGS} \
         -use-sym-addr \
