@@ -28,11 +28,12 @@ BC_FILE=${CURRENT_DIR}/build/src/m4.bc
 ARGS="-sym-files 1 1 -sym-stdin ${CURRENT_DIR}/m4.input -H37 -G"
 ARGS_SPLIT="-sym-files 1 1 -sym-stdin ${CURRENT_DIR}/m4_2.input -G"
 
+# merge
+
 function run_klee {
     search=$1
-    ${VANILLA_KLEE} \
+    ${VANILLA_KLEE} ${FLAGS} \
         ${search} \
-        ${FLAGS} \
         ${BC_FILE} ${ARGS}
 }
 
@@ -64,11 +65,12 @@ function run_with_rebase {
         ${BC_FILE} ${ARGS}
 }
 
-function run_context_test {
-    for i in {0..4}; do
-        K_CONTEXT=${i}
-        run_with_rebase
-    done
+# split
+
+function run_klee_2 {
+    ${VANILLA_KLEE} ${FLAGS} \
+        -search=dfs \
+        ${BC_FILE} ${ARGS_SPLIT}
 }
 
 function run_split {
@@ -78,18 +80,14 @@ function run_split {
         -split-objects \
         -split-threshold=${SPLIT_THRESHOLD} \
         -partition-size=${PARTITION} \
-        ${BC_FILE} ${ARGS}
+        ${BC_FILE} ${ARGS_SPLIT}
 }
 
 function run_split_all {
-    sizes=(16 32 64 128 256 512)
+    sizes=(32 64 128 256 512)
     for size in ${sizes[@]}; do
         PARTITION=${size} run_split
     done
 }
 
 ulimit -s unlimited
-
-run_klee
-run_klee_smm
-run_with_rebase
