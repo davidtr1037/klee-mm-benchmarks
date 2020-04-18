@@ -9,9 +9,13 @@ CFLAGS=-g
 
 .PHONY: all
 
-$(SRC): make.patch
+$(SRC): make.patch main.patch
 	tar xzf make-4.2.tar.gz
-	patch -p1 < $<
+ifndef NO_PATCH
+	patch -p1 < make.patch
+else
+	patch -p1 < main.patch
+endif
 
 $(BUILD): $(SRC)
 	mkdir $(BUILD)
