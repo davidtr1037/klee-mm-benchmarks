@@ -23,7 +23,9 @@ BC_FILE=${CURRENT_DIR}/build/gas/as-new.bc
 ARGS="A --sym-files 1 100"
 
 function run_klee {
+    search=$1
     ${VANILLA_KLEE} ${FLAGS} \
+        ${search} \
         ${BC_FILE} ${ARGS}
 }
 
@@ -59,6 +61,3 @@ function run_split_all {
 
 ulimit -s unlimited
 export KLEE_TEMPLATE=$(realpath ${CURRENT_DIR}/gas.input) KLEE_TEMPLATE_RANGE_START=f KLEE_TEMPLATE_RANGE_END=g
-
-#run_split_all
-#run_klee
