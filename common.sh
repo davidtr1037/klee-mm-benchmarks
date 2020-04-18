@@ -4,7 +4,25 @@ MAX_TIME=86400
 MAX_MEMORY=8000
 N=1
 
-function run_merge_all {
+function run_merge_fmm {
+    for ((n=0;n<${N};n++)); do
+        echo "iteration ${n}"
+        run_klee "-search=dfs"
+        run_klee "-search=bfs"
+        run_klee ""
+    done
+}
+
+function run_merge_smm {
+    for ((n=0;n<${N};n++)); do
+        echo "iteration ${n}"
+        run_klee_smm "-search=dfs"
+        run_klee_smm "-search=bfs"
+        run_klee_smm ""
+    done
+}
+
+function run_merge_dsmm {
     for ((n=0;n<${N};n++)); do
         echo "iteration ${n}"
         CONTEXT_RESOLVE=1 K_CONTEXT=4 REUSE=1 run_with_rebase "-search=dfs"
