@@ -10,7 +10,8 @@ PARTITION=128
 SIZE=4
 
 FLAGS=""
-FLAGS+="-max-memory=8000 "
+FLAGS+="-max-memory=${MAX_MEMORY} "
+FLAGS+="-max-time=${MAX_TIME} "
 FLAGS+="-libc=uclibc "
 FLAGS+="-search=dfs "
 FLAGS+="-use-forked-solver=0 "

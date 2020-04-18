@@ -4,7 +4,8 @@ CURRENT_DIR=$(dirname ${BASH_SOURCE[0]})
 source ${CURRENT_DIR}/../config.sh
 
 FLAGS=""
-FLAGS+="-max-memory=8000 "
+FLAGS+="-max-memory=${MAX_MEMORY} "
+FLAGS+="-max-time=${MAX_TIME} "
 FLAGS+="-libc=uclibc "
 FLAGS+="-posix-runtime "
 FLAGS+="-search=dfs "

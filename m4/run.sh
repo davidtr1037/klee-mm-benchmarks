@@ -4,12 +4,11 @@ CURRENT_DIR=$(dirname ${BASH_SOURCE[0]})
 source ${CURRENT_DIR}/../config.sh
 source ${CURRENT_DIR}/../common.sh
 
-MAX_MEMORY=8000
-
 FLAGS=""
 FLAGS+="-libc=uclibc "
 FLAGS+="-posix-runtime "
 FLAGS+="-max-memory=${MAX_MEMORY} "
+FLAGS+="-max-time=${MAX_TIME} "
 FLAGS+="-use-forked-solver=0 "
 FLAGS+="-only-output-states-covering-new "
 FLAGS+="-switch-type=internal "

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+MAX_TIME=86400
+MAX_MEMORY=8000
 N=1
 
 function run_all {
