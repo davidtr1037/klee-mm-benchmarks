@@ -64,13 +64,6 @@ function run_with_rebase {
         ${BC_FILE} ${ARGS}
 }
 
-function run_context_test {
-    for i in {0..4}; do
-        K_CONTEXT=${i}
-        run_with_rebase
-    done
-}
-
 function run_split {
     ${KLEE} ${FLAGS} \
         -search=dfs \
@@ -82,7 +75,7 @@ function run_split {
 }
 
 function run_split_all {
-    sizes=(16 32 64 128 256 512)
+    sizes=(32 64 128 256 512)
     for size in ${sizes[@]}; do
         PARTITION=${size} run_split
     done
@@ -90,7 +83,3 @@ function run_split_all {
 
 ulimit -s unlimited
 export KLEE_TEMPLATE=$(realpath ${CURRENT_DIR}/make.input)
-
-run_klee
-run_klee_smm
-run_with_rebase

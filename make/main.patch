@@ -1,0 +1,15 @@
+diff --exclude '*.o' --exclude '*.bc' -ru vanilla/make-4.2/main.c patch/make-4.2/main.c
+--- vanilla/make-4.2/main.c	2019-12-08 09:40:47.630080205 +0200
++++ patch/make-4.2/main.c	2019-12-08 16:19:05.755716324 +0200
+@@ -1063,9 +1063,10 @@
+ main (int argc, char **argv)
+ #else
+ int
+-main (int argc, char **argv, char **envp)
++main (int argc, char **argv)
+ #endif
+ {
++  char *envp[] = {NULL};
+   static char *stdin_nm = 0;
+   int makefile_status = MAKE_SUCCESS;
+   struct goaldep *read_files;
