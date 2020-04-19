@@ -50,13 +50,8 @@ function run_with_rebase {
         -use-kcontext=${K_CONTEXT} \
         -use-global-id=1 \
         -use-recursive-rebase=1 \
-        -reuse-arrays=0 \
         -reuse-segments=${REUSE} \
         -use-context-resolve=${CONTEXT_RESOLVE} \
-        -rebase-reachable=0 \
-        -reachability-depth=${DEPTH} \
-        -use-batch-rebase=0 \
-        -use-ahead-rebase=0 \
         ${BC_FILE} ${SIZE}
 }
 
