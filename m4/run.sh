@@ -37,6 +37,14 @@ function run_klee {
         ${BC_FILE} ${ARGS}
 }
 
+function run_memory_model {
+    search=$1
+    ${KLEE} ${FLAGS} \
+        ${search} \
+        -use-sym-addr \
+        ${BC_FILE} ${ARGS}
+}
+
 function run_klee_smm {
     search=$1
     ${KLEE_SMM} ${FLAGS} \
