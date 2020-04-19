@@ -35,7 +35,6 @@ function run_klee_smm {
     search=$1
     ${KLEE_SMM} ${FLAGS} \
         ${search} \
-        -max-time=${MAX_TIME} \
         -pts \
         -flat-memory \
         ${BC_FILE} ${SIZE}
