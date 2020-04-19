@@ -42,7 +42,7 @@ function run_no_opt {
 
 function run_reuse_opt {
     for ((n=0;n<${N};n++)); do
-        CONTEXT_RESOLVE=0 REUSE=1 run_with_rebase "-search=dfs"
+        CONTEXT_RESOLVE=0 K_CONTEXT=0 REUSE=1 run_with_rebase "-search=dfs"
     done
 }
 
@@ -50,4 +50,10 @@ function run_context_resolve_opt {
     for ((n=0;n<${N};n++)); do
         CONTEXT_RESOLVE=1 K_CONTEXT=4 REUSE=0 run_with_rebase "-search=dfs"
     done
+}
+
+function run_opt_test {
+    run_no_opt
+    run_context_resolve_opt
+    run_reuse_opt
 }
