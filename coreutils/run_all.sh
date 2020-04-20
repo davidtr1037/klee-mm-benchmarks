@@ -102,5 +102,4 @@ function run_with_limit {
 
 ulimit -s unlimited
 
-run_klee_all
-run_symaddr_all
+run_with_limit
