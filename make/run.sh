@@ -34,6 +34,7 @@ function run_klee {
     ${VANILLA_KLEE} ${FLAGS} \
         ${search} \
         -allocate-determ=1 \
+        -max-instructions=${MAX_INST} \
         ${BC_FILE} ${ARGS}
 }
 
@@ -41,6 +42,8 @@ function run_memory_model {
     search=$1
     ${KLEE} ${FLAGS} \
         ${search} \
+        -allocate-determ=1 \
+        -max-instructions=${MAX_INST} \
         -use-sym-addr \
         ${BC_FILE} ${ARGS}
 }
@@ -48,8 +51,8 @@ function run_memory_model {
 function run_klee_smm {
     search=$1
     ${KLEE_SMM} ${FLAGS} \
-        -allocate-determ=1 \
         ${search} \
+        -allocate-determ=1 \
         -pts \
         -flat-memory \
         ${BC_FILE} ${ARGS}
