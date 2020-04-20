@@ -24,11 +24,13 @@ FLAGS+="-allocate-determ-size=4000 "
 
 function run_klee {
     ${VANILLA_KLEE} ${FLAGS} \
+        -max-instructions=${MAX_INST} \
         ${BC_FILE} ${SIZE}
 }
 
 function run_memory_model {
     ${KLEE} ${FLAGS} \
+        -max-instructions=${MAX_INST} \
         -use-sym-addr \
         ${BC_FILE} ${SIZE}
 }
