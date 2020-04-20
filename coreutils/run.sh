@@ -44,7 +44,7 @@ function run_klee {
     max_inst=$4
     reset
     ${VANILLA_KLEE} ${FLAGS} \
-        -output-dir=${CURRENT_DIR}/build/src/klee-out-${name} \
+        -output-dir=${CURRENT_DIR}/build/src/out-klee-${name} \
         -max-time=${max_time} \
         -max-instructions=${max_inst} \
         ${bc_file} ${ARGS} &> /dev/null
@@ -56,7 +56,7 @@ function run_symaddr {
     max_time=$3
     max_inst=$4
     ${KLEE} ${FLAGS} \
-        -output-dir=${CURRENT_DIR}/build/src/mm-out-${name} \
+        -output-dir=${CURRENT_DIR}/build/src/out-mm-${name} \
         -max-time=${max_time} \
         -max-instructions=${max_inst} \
         -use-sym-addr \
