@@ -2,6 +2,7 @@
 
 MAX_TIME=86400
 MAX_MEMORY=8000
+MAX_INST=0
 N=1
 
 function run_merge_fmm {
