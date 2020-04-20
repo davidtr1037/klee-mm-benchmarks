@@ -101,5 +101,3 @@ function run_with_limit {
 }
 
 ulimit -s unlimited
-
-run_with_limit
