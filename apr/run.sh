@@ -25,9 +25,9 @@ PARTITION=128
 
 function run_klee {
     search=$1
-    ${VANILLA_KLEE} \
+    ${VANILLA_KLEE} ${FLAGS} \
         ${search} \
-        ${FLAGS} \
+        -max-instructions=${MAX_INST} \
         ${BC_FILE} ${SIZE}
 }
 
@@ -35,6 +35,7 @@ function run_memory_model {
     search=$1
     ${KLEE} ${FLAGS} \
         ${search} \
+        -max-instructions=${MAX_INST} \
         -use-sym-addr \
         ${BC_FILE} ${SIZE}
 }
