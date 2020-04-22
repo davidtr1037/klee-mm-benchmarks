@@ -1,7 +1,8 @@
 #!/bin/bash
 
 CURRENT_DIR=$(dirname ${BASH_SOURCE[0]})
-source ../config.sh
+source ${CURRENT_DIR}/../config.sh
+source ${CURRENT_DIR}/../common.sh
 
 UTILS_FILE=${CURRENT_DIR}/utils.txt
 LOG_FILE=${CURRENT_DIR}/status.log
