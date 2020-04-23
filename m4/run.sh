@@ -33,6 +33,7 @@ ARGS_SPLIT="-sym-files 1 1 -sym-stdin ${CURRENT_DIR}/m4_2.input -G"
 function run_klee {
     search=$1
     ${VANILLA_KLEE} ${FLAGS} \
+        -output-dir=${OUT_DIR} \
         ${search} \
         ${BC_FILE} ${ARGS}
 }
@@ -40,6 +41,7 @@ function run_klee {
 function run_klee_smm {
     search=$1
     ${KLEE_SMM} ${FLAGS} \
+        -output-dir=${OUT_DIR} \
         ${search} \
         -pts \
         -flat-memory \
@@ -49,6 +51,7 @@ function run_klee_smm {
 function run_with_rebase {
     search=$1
     ${KLEE} ${FLAGS} \
+        -output-dir=${OUT_DIR} \
         ${search} \
         -use-sym-addr \
         -use-rebase \
@@ -64,6 +67,7 @@ function run_with_rebase {
 
 function run_klee_2 {
     ${VANILLA_KLEE} ${FLAGS} \
+        -output-dir=${OUT_DIR} \
         -search=dfs \
         -max-instructions=${MAX_INST} \
         ${BC_FILE} ${ARGS_SPLIT}
@@ -72,6 +76,7 @@ function run_klee_2 {
 function run_memory_model {
     search=$1
     ${KLEE} ${FLAGS} \
+        -output-dir=${OUT_DIR} \
         ${search} \
         -max-instructions=${MAX_INST} \
         -use-sym-addr \
@@ -80,6 +85,7 @@ function run_memory_model {
 
 function run_split {
     ${KLEE} ${FLAGS} \
+        -output-dir=${OUT_DIR} \
         -search=dfs \
         -use-sym-addr \
         -split-objects \
@@ -91,7 +97,7 @@ function run_split {
 function run_split_all {
     sizes=(32 64 128 256 512)
     for size in ${sizes[@]}; do
-        PARTITION=${size} run_split
+        OUT_DIR=${PREFIX_DIR}/out-split-p${size} PARTITION=${size} run_split
     done
 }
 

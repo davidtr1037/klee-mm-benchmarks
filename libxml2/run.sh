@@ -24,26 +24,22 @@ FLAGS+="-allocate-determ-size=4000 "
 
 function run_klee {
     ${VANILLA_KLEE} ${FLAGS} \
+        -output-dir=${OUT_DIR} \
         -max-instructions=${MAX_INST} \
         ${BC_FILE} ${SIZE}
 }
 
 function run_memory_model {
     ${KLEE} ${FLAGS} \
+        -output-dir=${OUT_DIR} \
         -max-instructions=${MAX_INST} \
         -use-sym-addr \
         ${BC_FILE} ${SIZE}
 }
 
-function run_with_rebase {
-    ${KLEE} ${FLAGS} \
-        -use-sym-addr \
-        -use-rebase \
-        ${BC_FILE} ${SIZE}
-}
-
 function run_split {
     ${KLEE} ${FLAGS} \
+        -output-dir=${OUT_DIR} \
         -use-sym-addr \
         -split-objects \
         -split-threshold=${SPLIT_THRESHOLD} \
@@ -54,7 +50,7 @@ function run_split {
 function run_split_all {
     sizes=(32 64 128 256 512)
     for size in ${sizes[@]}; do
-        PARTITION=${size} run_split
+        OUT_DIR=${PREFIX_DIR}/out-split-p${size} PARTITION=${size} run_split
     done
 }
 
