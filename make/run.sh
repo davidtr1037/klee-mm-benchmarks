@@ -94,7 +94,7 @@ function run_split_all {
     for size in ${sizes[@]}; do
         OUT_DIR=${PREFIX_DIR}/out-split-p${size} ALLOCATE_DETERM=1 PARTITION=${size} run_split
     done
-    ALLOCATE_DETERM=0 PARTITION=32 run_split
+    OUT_DIR=${PREFIX_DIR}/out-split-p32 ALLOCATE_DETERM=0 PARTITION=32 run_split
 }
 
 ulimit -s unlimited
