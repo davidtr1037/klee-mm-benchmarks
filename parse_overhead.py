@@ -38,10 +38,9 @@ def main():
             klee_out = KLEEOut(os.path.join(results_dir, "out-klee-{}".format(p)))
             mm_out = KLEEOut(os.path.join(results_dir, "out-mm-{}".format(p)))
             print "program: {}".format(p)
-            if klee_out.paths != mm_out.paths:
-                print "  paths: {} {}".format(klee_out.paths, mm_out.paths)
-
+            assert(klee_out.paths == mm_out.paths)
             o = ((float(mm_out.time) - klee_out.time) / mm_out.time) * 100
+            print "  time: {} {}".format(klee_out.time, mm_out.time)
             print "  overhead: {}".format(o)
             overhead.append(o)
         except:
