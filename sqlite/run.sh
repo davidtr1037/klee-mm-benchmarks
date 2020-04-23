@@ -27,6 +27,7 @@ SIZE=15
 function run_klee {
     search=$1
     ${VANILLA_KLEE} ${FLAGS} \
+        -output-dir=${OUT_DIR} \
         ${search} \
         -max-instructions=${MAX_INST} \
         ${BC_FILE} ${SIZE}
@@ -35,6 +36,7 @@ function run_klee {
 function run_memory_model {
     search=$1
     ${KLEE} ${FLAGS} \
+        -output-dir=${OUT_DIR} \
         ${search} \
         -max-instructions=${MAX_INST} \
         -use-sym-addr \
@@ -44,6 +46,7 @@ function run_memory_model {
 function run_klee_smm {
     search=$1
     ${KLEE_SMM} ${FLAGS} \
+        -output-dir=${OUT_DIR} \
         ${search} \
         -pts \
         -flat-memory \
@@ -53,6 +56,7 @@ function run_klee_smm {
 function run_with_rebase {
     search=$1
     ${KLEE} ${FLAGS} \
+        -output-dir=${OUT_DIR} \
         ${search} \
         -use-cex-cache=0 \
         -use-sym-addr \
@@ -65,15 +69,9 @@ function run_with_rebase {
         ${BC_FILE} ${SIZE}
 }
 
-function run_context_test {
-    for i in {0..4}; do
-        K_CONTEXT=${i}
-        run_with_rebase
-    done
-}
-
 function run_split {
     ${KLEE} ${FLAGS} \
+        -output-dir=${OUT_DIR} \
         -search=dfs \
         -use-sym-addr \
         -split-objects \
