@@ -13,7 +13,6 @@ DIRS = [
     "out-no-opt",
     "out-opt-context",
     "out-opt-reuse",
-    "out-opt-both",
 ]
 
 def dump_queries(program_dir):
