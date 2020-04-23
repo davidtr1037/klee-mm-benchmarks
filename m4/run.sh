@@ -34,16 +34,6 @@ function run_klee {
     search=$1
     ${VANILLA_KLEE} ${FLAGS} \
         ${search} \
-        -max-instructions=${MAX_INST} \
-        ${BC_FILE} ${ARGS}
-}
-
-function run_memory_model {
-    search=$1
-    ${KLEE} ${FLAGS} \
-        ${search} \
-        -max-instructions=${MAX_INST} \
-        -use-sym-addr \
         ${BC_FILE} ${ARGS}
 }
 
@@ -75,6 +65,16 @@ function run_with_rebase {
 function run_klee_2 {
     ${VANILLA_KLEE} ${FLAGS} \
         -search=dfs \
+        -max-instructions=${MAX_INST} \
+        ${BC_FILE} ${ARGS_SPLIT}
+}
+
+function run_memory_model {
+    search=$1
+    ${KLEE} ${FLAGS} \
+        ${search} \
+        -max-instructions=${MAX_INST} \
+        -use-sym-addr \
         ${BC_FILE} ${ARGS_SPLIT}
 }
 
