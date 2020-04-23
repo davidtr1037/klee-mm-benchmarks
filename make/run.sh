@@ -32,6 +32,7 @@ ARGS="--sym-files 1 1 -sym-stdin ${CURRENT_DIR}/make.input -r -n -R -f A"
 function run_klee {
     search=$1
     ${VANILLA_KLEE} ${FLAGS} \
+        -output-dir=${OUT_DIR} \
         ${search} \
         -allocate-determ=1 \
         -max-instructions=${MAX_INST} \
@@ -41,6 +42,7 @@ function run_klee {
 function run_memory_model {
     search=$1
     ${KLEE} ${FLAGS} \
+        -output-dir=${OUT_DIR} \
         ${search} \
         -allocate-determ=1 \
         -max-instructions=${MAX_INST} \
@@ -51,6 +53,7 @@ function run_memory_model {
 function run_klee_smm {
     search=$1
     ${KLEE_SMM} ${FLAGS} \
+        -output-dir=${OUT_DIR} \
         ${search} \
         -allocate-determ=1 \
         -pts \
@@ -61,6 +64,7 @@ function run_klee_smm {
 function run_with_rebase {
     search=$1
     ${KLEE} ${FLAGS} \
+        -output-dir=${OUT_DIR} \
         ${search} \
         -allocate-determ=1 \
         -use-sym-addr \
@@ -75,6 +79,7 @@ function run_with_rebase {
 
 function run_split {
     ${KLEE} ${FLAGS} \
+        -output-dir=${OUT_DIR} \
         -allocate-determ=${ALLOCATE_DETERM} \
         -search=dfs \
         -use-sym-addr \

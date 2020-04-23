@@ -3,5 +3,4 @@
 CURRENT_DIR=$(dirname ${BASH_SOURCE[0]})
 source ${CURRENT_DIR}/run.sh
 
-run_no_opt
-run_context_test
+PREFIX_DIR=${RESOLVE_QUERIES_DIR}/make run_context_test
