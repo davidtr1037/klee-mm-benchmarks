@@ -6,7 +6,7 @@ import subprocess
 
 class KLEEOut(object):
 
-    def __init__(self, dir_path):
+    def __init__(self, dir_path, open_stats=True):
         self.dir_path = dir_path
         self.time = None
         self.instructions = None
@@ -17,7 +17,8 @@ class KLEEOut(object):
             raise Exception("missing directory: {}".format(dir_path))
     
         self.parse_info()
-        self.parse_stats()
+        if open_stats:
+            self.parse_stats()
         self.parse_messages()
 
     def parse_info(self):
