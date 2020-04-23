@@ -30,10 +30,10 @@ function run_merge_dsmm {
 }
 
 function run_context_test {
+    OUT_DIR=${PREFIX_DIR}/out-default CONTEXT_RESOLVE=0 K_CONTEXT=0 REUSE=0 run_with_rebase "-search=dfs"
     for k in {0..4}; do
         OUT_DIR=${PREFIX_DIR}/out-k${k} CONTEXT_RESOLVE=1 K_CONTEXT=${k} REUSE=0 run_with_rebase "-search=dfs"
     done
-    OUT_DIR=${PREFIX_DIR}/out-default CONTEXT_RESOLVE=0 K_CONTEXT=0 REUSE=0 run_with_rebase "-search=dfs"
 }
 
 function run_no_opt {
