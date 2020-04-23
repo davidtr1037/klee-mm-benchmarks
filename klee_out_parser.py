@@ -18,6 +18,7 @@ class KLEEOut(object):
     
         self.parse_info()
         self.parse_stats()
+        self.parse_messages()
 
     def parse_info(self):
         with open(os.path.join(self.dir_path, "info")) as f:
@@ -48,6 +49,13 @@ class KLEEOut(object):
         values = [v.strip() for v in lines[3].split('|')]
         self.instructions = int(values[2])
         self.time = int(float((values[3])))
+
+    def parse_messages(self):
+        with open(os.path.join(self.dir_path, "messages.txt")) as f:
+            for line in f.readlines():
+                m = re.search("KLEE: Resolve queries: (\w*)", line)
+                if m is not None:
+                    self.resolve_queries = int(m.groups()[0])
 
     def dump(self):
         print "Time: {}".format(self.time)
