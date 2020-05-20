@@ -12,7 +12,7 @@ SANDBOX=${SANDBOX_DIR}/sandbox
 
 ARGS="--sym-args 0 1 10 --sym-args 0 2 2 --sym-files 1 8 --sym-stdin 8 --sym-stdout"
 MAX_TIME=3600
-MAX_TIME_INCREASED=5400
+MAX_TIME_INCREASED=10000
 MAX_MEMORY=4000
 
 FLAGS+="--max-memory=${MAX_MEMORY} "
