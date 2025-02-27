@@ -13,24 +13,26 @@ LDFLAGS=
 $(SRC_PATH): $(SRC_PATH).tar.xz
 	tar -xf $^
 
-BUILD_DIR=build
+CURRENT_DIR=$(dirname ${BASH_SOURCE[0]})
+BUILD=$(CURDIR)/build
+BUILD_GCOV=$(CURDIR)/build_gcov
 
 %.o: %.c $(SRC_PATH)
 	$(WLLVM) -c $(CFLAGS) $< -o $@
 
-$(BUILD_DIR): $(SRC_PATH)
-	mkdir -p ${BUILD_DIR}
-	cd ${BUILD_DIR}; $(SRC_PATH)/configure CC=$(WLLVM) CFLAGS="-g"
+$(BUILD): $(SRC_PATH)
+	mkdir -p ${BUILD}
+	cd ${BUILD}; $(SRC_PATH)/configure CC=$(WLLVM) CFLAGS="-g"
 
-all: $(BUILD_DIR)
-	make -C ${BUILD_DIR} -j4
-	$(EXTRACT_BC) $(BUILD_DIR)/gas/as-new
-	$(OPT) -mem2reg $(BUILD_DIR)/gas/as-new.bc -o $(BUILD_DIR)/gas/as-new.bc
+$(BUILD_GCOV): $(SRC_PATH)
+	rm -rf $(BUILD_GCOV) && mkdir $(BUILD_GCOV)
+	cd $(BUILD_GCOV) ; CC=gcc CFLAGS="$(COVERAGE_CFLAGS)" LDFLAGS="$(COVERAGE_LDFLAGS)" $(SRC_PATH)/configure $(CONF_FLAGS); cd -
 
-$(BC_TARGET): $(TARGET) 
-	$(EXTRACT_BC) $< -o $@
-	$(OPT) -mem2reg $@ -o $@
-	$(LLVM_DIS) $@
+all: $(BUILD) $(BUILD_GCOV)
+	make -C $(BUILD) -j4
+	$(EXTRACT_BC) $(BUILD)/gas/as-new
+	$(OPT) -mem2reg $(BUILD)/gas/as-new.bc -o $(BUILD)/gas/as-new.bc
+	make -C $(BUILD_GCOV) -j4
 
 clean:
-	rm -rf $(TARGET) $(BC_TARGET) *.o *.bc *.ll *.gcno *.gcda $(BUILD_DIR)
+	rm -rf *.o *.bc *.ll *.gcno *.gcda $(BUILD)
